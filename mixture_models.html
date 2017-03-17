@@ -11906,11 +11906,49 @@ img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!importan
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Assignment-5:-Gaussian-mixture-models">Assignment 5: Gaussian mixture models<a class="anchor-link" href="#Assignment-5:-Gaussian-mixture-models">¶</a></h1><p>In
- this assignment, you will learn to perform image segmentation. To this 
-end, you will implement Gaussian mixture models and iteratively improve 
-their performance. You will perform this segmentation on the "Bird" and 
-"Party Spock" images included with the assignment.</p>
+<h1 id="Assignment-5:-Gaussian-mixture-models">Assignment 5: Gaussian mixture models<a class="anchor-link" href="#Assignment-5:-Gaussian-mixture-models">¶</a></h1><h2 id="The-Challenge">The Challenge<a class="anchor-link" href="#The-Challenge">¶</a></h2><p>Automatic
+ image processing is a key component to many AI systems, including 
+facial recognition and video compression. One basic method for 
+processing is segmentation, by which we divide an image into a fixed 
+number of components in order to simplify its representation. For 
+example, we can train a mixture of Gaussians to represent an image, and 
+segment it according to the simplified representation as shown in the 
+images below.</p>
+<p>In this assignment, you will learn to perform image segmentation. To 
+this end, you will implement Gaussian mixture models and iteratively 
+improve their performance. You will perform this segmentation on the 
+"Bird" and "Party Spock" images included with the assignment.</p>
+<h2 id="About-the-Assignment">About the Assignment<a class="anchor-link" href="#About-the-Assignment">¶</a></h2><p>The
+ tests for the assignment are provided in the notebook, so Bonnie is 
+only for submission purposes. The tests on Bonnie will be similar to the
+ ones provided here, but the images being tested against, and the values
+ for calculations will be different.</p>
+<p>Thus, you will be allowed only <strong>5 submissions</strong> on Bonnie. Make sure you test <strong>everything</strong>
+ before submitting. Score for the last submission counts. The code will 
+be allowed to run for not more than 2 hours per submission. In order for
+ the code to run quickly, make sure to vectorize the code (more on this 
+below).</p>
+<h2 id="Your-Mission-(should-you-choose-to-accept-it)">Your Mission (should you choose to accept it)<a class="anchor-link" href="#Your-Mission-%28should-you-choose-to-accept-it%29">¶</a></h2><p>Your assignment is to implement several methods of image segmentation, with increasing complexity.</p>
+<ol>
+<li>Implement k-means clustering to segment a color image.</li>
+<li>Build a Gaussian mixture model to be trained with expectation-maximization.</li>
+<li>Experiment with varying the details of the Gaussian mixture model’s implementation.</li>
+<li>Implement and test a new metric called the Bayesian information criterion, which guarantees a more robust image segmentation.</li>
+</ol>
+<h2 id="Grading">Grading<a class="anchor-link" href="#Grading">¶</a></h2><p>The grade you receive for the assignment will be distributed as follows:</p>
+<ol>
+<li>k-Means Clustering (20 points)</li>
+<li>Gaussian Mixture Model (40 points)</li>
+<li>Model Performance Improvements (20 points)</li>
+<li>Bayesian Information Criterion (20 points)</li>
+<li>Bonus</li>
+</ol>
+<h2 id="Due-Date">Due Date<a class="anchor-link" href="#Due-Date">¶</a></h2><p>The assignment is due <strong>April 2nd, 2017 at 11:59PM UTC-12 (Anywhere on Earth time)</strong>. The deliverable for this assignment is a completed mixture_models.py file.</p>
+<h2 id="Resources">Resources<a class="anchor-link" href="#Resources">¶</a></h2><p>The
+ em.pdf chapter in the assignment folder gives a good explanation of 
+implementing and training mixture models, particularly 424-427 (k-means)
+ and 435-439 (mixture models and EM).
+The book <a href="http://statweb.stanford.edu/%7Etibs/ElemStatLearn/printings/ESLII_print10.pdf"><em>Elements of Statistical Learning</em></a>, pages 291-295.</p>
 
 </div>
 </div>
