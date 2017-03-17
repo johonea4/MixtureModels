@@ -71,11 +71,7 @@ def flatten_image_matrix(image_matrix):
     else:
         height, width = image_matrix.shape
         depth = 1
-    flattened_values = np.zeros([height*width,depth])
-    for i, r in enumerate(image_matrix):
-        for j, c in enumerate(r):
-            flattened_values[i*width+j,:] = c
-    return flattened_values
+    return image_matrix.reshape(height*width, depth)
 
 def unflatten_image_matrix(image_matrix, width):
     """
@@ -94,17 +90,9 @@ def unflatten_image_matrix(image_matrix, width):
     height = int(heightWidth / width)
     if(len(image_matrix.shape) > 1 and image_matrix.shape[-1] != 1):
         depth = image_matrix.shape[-1]
-        unflattened_values = np.zeros([height, width, depth])
-        for i in range(height):
-            for j in range(width):
-                unflattened_values[i,j,:] = image_matrix[i*width+j,:]
     else:
         depth = 1
-        unflattened_values = np.zeros([height, width])
-        for i in range(height):
-            for j in range(width):
-                unflattened_values[i,j] = image_matrix[i*width+j]
-    return unflattened_values
+    return image_matrix.reshape(height, width, depth)
 
 def image_difference(image_values_1, image_values_2):
     """
