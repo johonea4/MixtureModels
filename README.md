@@ -48,10 +48,10 @@ Finally, commit the new updates to your branch and continue developing:
 `git commit -am "<funny message vilifying Bonnie>"`
 
 # Submit your code
-Bonnie will be made active as soon as we make an announcement on Piazza. - around 11 am, 9th November 2016
+Bonnie is active and in beta, and will be released officially by 26th March 2017.
 
 To submit your code and have it evaluated for a grade, use `python submit.py assignment_5`.  
-We have increased the number of submissions allowed to 10 in total (until deadline).
+The number of submissions allowed is set to 5.
 The last submission before the deadline will be used to determine your grade.
  
 A friendly reminder: please ensure that your submission is in `mixture_models.py`. The script described in the following section automatically sends that file to the servers for processing.
