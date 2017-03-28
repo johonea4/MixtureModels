@@ -289,4 +289,16 @@ def BIC_likelihood_question():
     }
     return pairs
 
+def bonus(test_array, train_array):
+    """
+    Return the distance from every point in test_array
+    to every point in train_array.
+    
+    returns:
+    dists = numpy array of float
+    """
+    # TODO: fill in the bonus function
+    # REMOVE THE LINE BELOW IF ATTEMPTING BONUS
+    raise NotImplementedError()
+    return dists
 
