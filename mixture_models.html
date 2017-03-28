@@ -11745,7 +11745,7 @@ div#notebook {
 </style>
 
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="mixture_models_files/custom.css">
+<link rel="stylesheet" href="mixture_models_files/custom.htm">
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
@@ -12094,9 +12094,9 @@ grayscale regions. The idea of segmentation is to assign a component <span class
     <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">heightWidth</span> <span class="o">/</span> <span class="n">width</span><span class="p">)</span>
     <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">image_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">depth</span> <span class="o">=</span> <span class="n">image_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">image_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">depth</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">image_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image_matrix</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">image_difference</span><span class="p">(</span><span class="n">image_values_1</span><span class="p">,</span> <span class="n">image_values_2</span><span class="p">):</span>
     <span class="sd">"""</span>
@@ -12509,7 +12509,7 @@ image for this purpose.<a class="anchor-link" href="#You-will-want-to-have-your-
 <span class="sd">        ln(Pr(X | mixing, mean, stdev)) = sum((n=1 to N),ln(sum((k=1 to K), mixing_k * N(x_n | mean_k, stdev_k) )))</span>
 <span class="sd">        </span>
 <span class="sd">        returns:</span>
-<span class="sd">        log_likelihood = float [0,1]</span>
+<span class="sd">        log_likelihood = float </span>
 <span class="sd">        """</span>
         <span class="c1"># TODO: finish this</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
@@ -13092,7 +13092,7 @@ consecutive iterations. This will mean re-implementing <code>train_model()</code
     <span class="n">new_convergence_likelihood</span> <span class="o">=</span> <span class="n">gmm_new</span><span class="o">.</span><span class="n">likelihood</span><span class="p">()</span>
     
     <span class="c1"># test convergence difference</span>
-    <span class="n">convergence_diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">default_convergence_likelihood</span> <span class="o">-</span> <span class="n">new_convergence_likelihood</span><span class="p">)</span>
+    <span class="n">convergence_diff</span> <span class="o">=</span> <span class="n">new_convergence_likelihood</span> <span class="o">-</span> <span class="n">default_convergence_likelihood</span>
     <span class="n">convergence_thresh</span> <span class="o">=</span> <span class="mi">200</span>
     <span class="k">if</span><span class="p">(</span><span class="n">convergence_diff</span> <span class="o">&gt;=</span> <span class="n">convergence_thresh</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="s1">'Congrats! The likelihood difference between the original '</span>
@@ -13268,18 +13268,75 @@ likelihood.</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>You're done with the base requirements! Hope you have completed the 
-functions in the mixture_models.py file and tested everything!</p>
-<h2 id="Bonus">Bonus<a class="anchor-link" href="#Bonus">¶</a></h2><p>A 
-crucial part of machine learning is working with very large datasets. As
- stated before, using for loops over these datasets will result in the 
-code taking many hours, or even several days, to run. Even vectorization
- can take time if not done properly, and as such there are certain 
-tricks you can perform to get your code to run as fast as physically 
-possible.</p>
-<p>The bonus portion of this assignment will require you to think of 
-certain optimization tricks to run a function as fast as possible. Stay 
-tuned for more!</p>
+<h2 id="Bonus">Bonus<a class="anchor-link" href="#Bonus">¶</a></h2><p>2 points</p>
+<p>A crucial part of machine learning is working with very large 
+datasets. As stated before, using for loops over these datasets will 
+result in the code taking many hours, or even several days, to run. Even
+ vectorization can take time if not done properly, and as such there are
+ certain tricks you can perform to get your code to run as fast as 
+physically possible.</p>
+<p>For this part of the assignment, you will need to implement part of a k-Means algorithm. You are given two arrays  - <code>points_array</code> with <em>X</em> n-dimensional points, and <code>means_array</code> with <em>Y</em> n-dimensional points.
+You will need to return an <em>X</em> x <em>Y</em> array containing the distances from each point in <code>points_array</code> to each point in <code>means_array</code>.</p>
+<p>Your code will be tested using two very large arrays, against our 
+reference implementation. If your implementation returns the correct 
+answer in time comparable to our reference implementation, you will 
+receive 2 bonus points.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">bonus</span><span class="p">(</span><span class="n">points_array</span><span class="p">,</span> <span class="n">means_array</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Return the distance from every point in points_array</span>
+<span class="sd">    to every point in means_array.</span>
+<span class="sd">    </span>
+<span class="sd">    returns:</span>
+<span class="sd">    dists = numpy array of float</span>
+<span class="sd">    """</span>
+    <span class="c1"># TODO: fill in the bonus function</span>
+    <span class="c1"># REMOVE THE LINE BELOW IF ATTEMPTING BONUS</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">dists</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">bonus_test</span><span class="p">():</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.9059608</span><span class="p">,</span><span class="mf">0.67550357</span><span class="p">,</span><span class="mf">0.13525533</span><span class="p">],[</span> <span class="mf">0.23656114</span><span class="p">,</span><span class="mf">0.63624466</span><span class="p">,</span><span class="mf">0.3606615</span> <span class="p">],[</span> <span class="mf">0.91163215</span><span class="p">,</span><span class="mf">0.24431103</span><span class="p">,</span><span class="mf">0.33318504</span><span class="p">],[</span> <span class="mf">0.25209736</span><span class="p">,</span><span class="mf">0.24600123</span><span class="p">,</span><span class="mf">0.42392935</span><span class="p">],[</span> <span class="mf">0.62799146</span><span class="p">,</span><span class="mf">0.04520208</span><span class="p">,</span><span class="mf">0.55232494</span><span class="p">],[</span> <span class="mf">0.5588561</span><span class="p">,</span> <span class="mf">0.06397713</span><span class="p">,</span><span class="mf">0.53465371</span><span class="p">],[</span> <span class="mf">0.82530045</span><span class="p">,</span><span class="mf">0.62811624</span><span class="p">,</span><span class="mf">0.79672349</span><span class="p">],[</span> <span class="mf">0.50048147</span><span class="p">,</span><span class="mf">0.13215356</span><span class="p">,</span><span class="mf">0.54517893</span><span class="p">],[</span> <span class="mf">0.84725662</span><span class="p">,</span><span class="mf">0.71085917</span><span class="p">,</span><span class="mf">0.61111105</span><span class="p">],[</span> <span class="mf">0.25236734</span><span class="p">,</span><span class="mf">0.25951904</span><span class="p">,</span><span class="mf">0.70239158</span><span class="p">]])</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.39874413</span><span class="p">,</span><span class="mf">0.47440682</span><span class="p">,</span><span class="mf">0.86140829</span><span class="p">],[</span> <span class="mf">0.05671347</span><span class="p">,</span><span class="mf">0.26599323</span><span class="p">,</span><span class="mf">0.33577454</span><span class="p">],[</span> <span class="mf">0.7969679</span><span class="p">,</span> <span class="mf">0.44920099</span><span class="p">,</span><span class="mf">0.37978416</span><span class="p">],[</span> <span class="mf">0.45428452</span><span class="p">,</span><span class="mf">0.51414022</span><span class="p">,</span><span class="mf">0.21209852</span><span class="p">],[</span> <span class="mf">0.7112214</span><span class="p">,</span> <span class="mf">0.94906158</span><span class="p">,</span><span class="mf">0.25496493</span><span class="p">]])</span>
+    <span class="n">expected_answer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.90829883</span><span class="p">,</span><span class="mf">0.9639127</span><span class="p">,</span> <span class="mf">0.35055193</span><span class="p">,</span><span class="mf">0.48575144</span><span class="p">,</span><span class="mf">0.35649377</span><span class="p">],[</span> <span class="mf">0.55067427</span><span class="p">,</span><span class="mf">0.41237201</span><span class="p">,</span><span class="mf">0.59110637</span><span class="p">,</span><span class="mf">0.29048911</span><span class="p">,</span><span class="mf">0.57821151</span><span class="p">],[</span> <span class="mf">0.77137409</span><span class="p">,</span><span class="mf">0.8551975</span><span class="p">,</span> <span class="mf">0.23937264</span><span class="p">,</span><span class="mf">0.54464354</span><span class="p">,</span><span class="mf">0.73685561</span><span class="p">],[</span> <span class="mf">0.51484192</span><span class="p">,</span><span class="mf">0.21528078</span><span class="p">,</span><span class="mf">0.58320052</span><span class="p">,</span><span class="mf">0.39705222</span><span class="p">,</span><span class="mf">0.85652654</span><span class="p">],[</span> <span class="mf">0.57645778</span><span class="p">,</span><span class="mf">0.64961631</span><span class="p">,</span><span class="mf">0.47067874</span><span class="p">,</span><span class="mf">0.60483973</span><span class="p">,</span><span class="mf">0.95515036</span><span class="p">],[</span> <span class="mf">0.54850426</span><span class="p">,</span><span class="mf">0.57663736</span><span class="p">,</span><span class="mf">0.47862222</span><span class="p">,</span><span class="mf">0.56358129</span><span class="p">,</span><span class="mf">0.94064631</span><span class="p">],[</span> <span class="mf">0.45799673</span><span class="p">,</span><span class="mf">0.966609</span><span class="p">,</span><span class="mf">0.45458971</span><span class="p">,</span><span class="mf">0.70173336</span><span class="p">,</span><span class="mf">0.63993928</span><span class="p">],[</span> <span class="mf">0.47695785</span><span class="p">,</span><span class="mf">0.50861901</span><span class="p">,</span><span class="mf">0.46451987</span><span class="p">,</span><span class="mf">0.50891112</span><span class="p">,</span><span class="mf">0.89217387</span><span class="p">],[</span> <span class="mf">0.56543953</span><span class="p">,</span><span class="mf">0.94798437</span><span class="p">,</span><span class="mf">0.35285421</span><span class="p">,</span><span class="mf">0.59357932</span><span class="p">,</span><span class="mf">0.4495398</span> <span class="p">],[</span> <span class="mf">0.30477736</span><span class="p">,</span><span class="mf">0.41560848</span><span class="p">,</span><span class="mf">0.66079087</span><span class="p">,</span><span class="mf">0.58820896</span><span class="p">,</span><span class="mf">0.94138546</span><span class="p">]])</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">expected_answer</span><span class="p">,</span><span class="n">bonus</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="n">means</span><span class="p">),</span><span class="mf">1e-7</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s1">'You returned the correct distances.'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s1">'Your distance calculation is incorrect.'</span>
+
+<span class="n">bonus_test</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You're done with the requirements! Hope you have completed the functions in the mixture_models.py file and tested everything!</p>
 
 </div>
 </div>
