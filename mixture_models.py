@@ -289,10 +289,10 @@ def BIC_likelihood_question():
     }
     return pairs
 
-def bonus(test_array, train_array):
+def bonus(points_array, means_array):
     """
-    Return the distance from every point in test_array
-    to every point in train_array.
+    Return the distance from every point in points_array
+    to every point in means_array.
     
     returns:
     dists = numpy array of float
