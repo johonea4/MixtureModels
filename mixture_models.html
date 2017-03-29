@@ -13277,10 +13277,16 @@ result in the code taking many hours, or even several days, to run. Even
 physically possible.</p>
 <p>For this part of the assignment, you will need to implement part of a k-Means algorithm. You are given two arrays  - <code>points_array</code> with <em>X</em> n-dimensional points, and <code>means_array</code> with <em>Y</em> n-dimensional points.
 You will need to return an <em>X</em> x <em>Y</em> array containing the distances from each point in <code>points_array</code> to each point in <code>means_array</code>.</p>
-<p>Your code will be tested using two very large arrays, against our 
-reference implementation. If your implementation returns the correct 
-answer in time comparable to our reference implementation, you will 
-receive 2 bonus points.</p>
+<p>Your code will be tested using two <strong>very</strong> large 
+arrays, against our reference implementation. If your implementation 
+returns the correct answer in time comparable to our reference 
+implementation, you will receive 2 bonus points.</p>
+<p>For reference, the data used is in the order of thousands of points 
+and hundreds of means, and Bonnie automatically kills a grading script 
+that takes more than 500MB. So please test accordingly locally before 
+submitting, as you may lose a submission for an inefficient solution. It
+ is very likely that you could run out of memory if your implementation 
+is inefficient.</p>
 
 </div>
 </div>
