@@ -358,3 +358,15 @@ def bonus_test():
         print 'You returned the correct distances.'
     else:
         print 'Your distance calculation is incorrect.'
+
+if __name__ == '__main__':
+    k_means_test()
+    # gmm_likelihood_test()
+    # gmm_joint_prob_test()
+    # gmm_train_test()
+    # gmm_segment_test()
+    # gmm_best_segment_test()
+    # gmm_improvement_test()
+    # convergence_condition_test()
+    # bayes_info_test()
+    # bonus_test()
