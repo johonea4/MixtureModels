@@ -1,16 +1,21 @@
 from __future__ import division
 import warnings
-warnings.simplefilter(action = "ignore", category = FutureWarning)
 import numpy as np
 import scipy as sp
 from matplotlib import image
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-
-from helper_functions import image_to_matrix, matrix_to_image, flatten_image_matrix, unflatten_image_matrix, image_difference
-
+from random import randint
+import math
+from scipy.misc import logsumexp
+from helper_functions import image_to_matrix, matrix_to_image, flatten_image_matrix, unflatten_image_matrix, \
+    image_difference
 from random import randint
 from functools import reduce
+
+warnings.simplefilter(action="ignore", category=FutureWarning)
+
+
 def k_means_cluster(image_values, k=3, initial_means=None):
     """
     Separate the provided RGB values into
@@ -30,6 +35,7 @@ def k_means_cluster(image_values, k=3, initial_means=None):
     # TODO: finish this function
     raise NotImplementedError()
     return updated_image_values
+
 
 def default_convergence(prev_likelihood, new_likelihood, conv_ctr, conv_ctr_cap=10):
     """
@@ -53,15 +59,13 @@ def default_convergence(prev_likelihood, new_likelihood, conv_ctr, conv_ctr_cap=
                                 abs(prev_likelihood) * 1.1)
 
     if increase_convergence_ctr:
-        conv_ctr+=1
+        conv_ctr += 1
     else:
-        conv_ctr =0
+        conv_ctr = 0
 
     return conv_ctr, conv_ctr > conv_ctr_cap
 
-from random import randint
-import math
-from scipy.misc import logsumexp
+
 class GaussianMixtureModel:
     """
     A Gaussian mixture model
@@ -79,12 +83,12 @@ class GaussianMixtureModel:
         """
         self.image_matrix = image_matrix
         self.num_components = num_components
-        if(means is None):
-            self.means = [0]*num_components
+        if means is None:
+            self.means = [0] * num_components
         else:
             self.means = means
-        self.variances = [0]*num_components
-        self.mixing_coefficients = [0]*num_components
+        self.variances = [0] * num_components
+        self.mixing_coefficients = [0] * num_components
 
     def joint_prob(self, val):
         """Calculate the joint
@@ -187,6 +191,7 @@ class GaussianMixtureModel:
         raise NotImplementedError()
         return segment
 
+
 class GaussianMixtureModelImproved(GaussianMixtureModel):
     """A Gaussian mixture model
     for a provided grayscale image,
@@ -206,6 +211,7 @@ class GaussianMixtureModelImproved(GaussianMixtureModel):
         """
         # TODO: finish this
         raise NotImplementedError()
+
 
 def new_convergence_function(previous_variables, new_variables, conv_ctr, conv_ctr_cap=10):
     """
@@ -231,6 +237,7 @@ def new_convergence_function(previous_variables, new_variables, conv_ctr, conv_c
     raise NotImplementedError()
     return conv_ctr, converged
 
+
 class GaussianMixtureModelConvergence(GaussianMixtureModel):
     """
     Class to test the
@@ -243,10 +250,12 @@ class GaussianMixtureModelConvergence(GaussianMixtureModel):
         # TODO: finish this function
         raise NotImplementedError()
 
+
 def bayes_info_criterion(gmm):
     # TODO: finish this function
     raise NotImplementedError()
     return BIC
+
 
 def BIC_likelihood_model_test():
     """Test to compare the
@@ -284,10 +293,11 @@ def BIC_likelihood_question():
     bic = 0
     likelihood = 0
     pairs = {
-        'BIC' : bic,
-        'likelihood' : likelihood
+        'BIC': bic,
+        'likelihood': likelihood
     }
     return pairs
+
 
 def bonus(points_array, means_array):
     """
@@ -301,4 +311,3 @@ def bonus(points_array, means_array):
     # REMOVE THE LINE BELOW IF ATTEMPTING BONUS
     raise NotImplementedError()
     return dists
-
