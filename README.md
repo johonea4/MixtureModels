@@ -43,13 +43,13 @@ The em.pdf chapter in the assignment folder gives a good explanation of implemen
 A Gaussian mixture model is a generative model for representing the underlying probability distribution of a complex collection of data, such as the collection of pixels in a grayscale photograph.
 In the context of this problem, a Gaussian mixture model defines the joint probability  f(x)  as
 
-$f(x) = \sum_{i=1}^k m_i N_i(x|\mu_i, \sigma_i^2) $
+![alt text](images/joint.gif "Joint Distribution")
  
 where xx  is a grayscale value [0,1],  f(x)  is the joint probability of that gray scale value,  $m_i$ is the mixing coefficient on component  i,  $N_i$  is the  $i^{th}$  Gaussian distribution underlying the value  x  with mean  $\mu_i$  and variance  $\sigma_i^2$.
 
 We will be using this model to segment photographs into different grayscale regions. The idea of segmentation is to assign a component  i  to each pixel  x using the maximum posterior probability
 
-$component_x=argmax_i(m_iN_i(x|\mu_i, \sigma_i^2)$
+![alt text](images/component.gif "Component Assignment")
  
 Then we will replace each pixel in the image with its corresponding  $μ_i$  to produce a result as below (original above, segmented with three components below).
 
@@ -95,7 +95,7 @@ Complete the implementation of GaussianMixtureModel so that it can perform the f
 When multiplying lots of probabilities in sequence, you can end up with a probability of zero due to underflow. To avoid this, you should calculate the log probabilities for the entire assignment.
 The log form of the Gaussian probability of scalar value  x  is:
 
-$$ln(N(x|\mu, \sigma)) = -0.5ln(2\pi\sigma^2) - \frac{(x-\mu)^2}{2\sigma^2}$$
+![alt text](images/logsumexp.gif "Log Form of Gaussian")
 
 where $\mu$ is the mean and $\sigma$ is the standard deviation.
 
