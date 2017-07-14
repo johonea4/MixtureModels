@@ -32,7 +32,7 @@ The grade you receive for the assignment will be distributed as follows:
 
 
 ## Due Date
-
+The assignment is due July 28th, 2017 at 11:59PM UTC-12 (Anywhere on Earth time). The deliverable for this assignment is a completed mixture_models.py file.
 
 ## Resources
 
@@ -41,16 +41,23 @@ The em.pdf chapter in the assignment folder gives a good explanation of implemen
 ## Background
 
 A Gaussian mixture model is a generative model for representing the underlying probability distribution of a complex collection of data, such as the collection of pixels in a grayscale photograph.
-In the context of this problem, a Gaussian mixture model defines the joint probability  f(x)f(x)  as
-f(x)=∑i=1kmiNi(x|μi,σ2i)
-f(x)=∑i=1kmiNi(x|μi,σi2)
+In the context of this problem, a Gaussian mixture model defines the joint probability  f(x)  as
+
+$f(x) = \sum_{i=1}^k m_i N_i(x|\mu_i, \sigma_i^2) $
  
-where  xx  is a grayscale value [0,1],  f(x)f(x)  is the joint probability of that gray scale value,  mimi  is the mixing coefficient on component  ii ,  NiNi  is the  ithith  Gaussian distribution underlying the value  xx  with mean  μiμi  and variance  σ2iσi2 .
-We will be using this model to segment photographs into different grayscale regions. The idea of segmentation is to assign a component  ii  to each pixel  xx using the maximum posterior probability
-componentx=argmaxi(miNi(x|μi,σ2i)
-componentx=argmaxi(miNi(x|μi,σi2)
+where xx  is a grayscale value [0,1],  f(x)  is the joint probability of that gray scale value,  $m_i$ is the mixing coefficient on component  i,  $N_i$  is the  $i^{th}$  Gaussian distribution underlying the value  x  with mean  $\mu_i$  and variance  $\sigma_i^2$.
+
+We will be using this model to segment photographs into different grayscale regions. The idea of segmentation is to assign a component  i  to each pixel  x using the maximum posterior probability
+
+$component_x=argmax_i(m_iN_i(x|\mu_i, \sigma_i^2)$
  
-Then we will replace each pixel in the image with its corresponding  μiμi  to produce a result as below (original above, segmented with three components below).
+Then we will replace each pixel in the image with its corresponding  $μ_i$  to produce a result as below (original above, segmented with three components below).
+
+
+![alt text](images/party_spock.png "Source Image")
+
+![alt text](images/party_spock3.png "Filtered Image")
+
 
 ## Part 0: Note on Vectorization
 
@@ -85,6 +92,22 @@ Complete the implementation of GaussianMixtureModel so that it can perform the f
 4) Segment the image according to the trained model. (5 points)
 5) Determine the best segmentation by iterating over model training and scoring, since EM isn't guaranteed to converge to the global maximum. (5 points)
 
+When multiplying lots of probabilities in sequence, you can end up with a probability of zero due to underflow. To avoid this, you should calculate the log probabilities for the entire assignment.
+The log form of the Gaussian probability of scalar value  x  is:
+
+$$ln(N(x|\mu, \sigma)) = -0.5ln(2\pi\sigma^2) - \frac{(x-\mu)^2}{2\sigma^2}$$
+
+where $\mu$ is the mean and $\sigma$ is the standard deviation.
+
+You can calculate the sum of log probabilities using scipy.misc.logsumexp(). For example, logsumexp([-2, -3]) will return the same result as numpy.log(numpy.exp(-2) + numpy.exp(-3))
+
+Rather than using lists of lists, you're probably going to have an easier time using numpy arrays.
+
+Warning: You may lose all marks for this part if your code runs for too long.
+
+You will need to vectorize your code in this part. Specifically, the method train_model() needs to perform operations using numpy arrays, as does likelihood(), which calculates the log likelihood. These are time-sensitive operations and will be called over and over as you proceed with this assignment.
+
+For the synthetic data test which we provide to check if your training is working, the set is too small and it won't make a difference. But with the actual image that we use ahead, for-loops won't do good. Vectorized code would take under 30 seconds to converge which would typically involve about 15-20 iterations with the convergence function we have here. Inefficient code that uses loops or iterates over each pixel value sequentially, will take hours to run. You don't want to do that because:
 
 ## Part 3: Model Experimentation
 
