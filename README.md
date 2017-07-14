@@ -45,7 +45,7 @@ In the context of this problem, a Gaussian mixture model defines the joint proba
 
 ![alt text](images/joint.gif "Joint Distribution")
  
-where xx  is a grayscale value [0,1],  f(x)  is the joint probability of that gray scale value,  $m_i$ is the mixing coefficient on component  i,  $N_i$  is the  $i^{th}$  Gaussian distribution underlying the value  x  with mean  $\mu_i$  and variance  $\sigma_i^2$.
+where x is a grayscale value [0,1],  f(x)  is the joint probability of that gray scale value,  m sub i is the mixing coefficient on component i,  N sub i is the  i-th  Gaussian distribution underlying the value  x  with mean  mu sub i and variance  sigma sub i squared.
 
 We will be using this model to segment photographs into different grayscale regions. The idea of segmentation is to assign a component  i  to each pixel  x using the maximum posterior probability
 
@@ -97,7 +97,7 @@ The log form of the Gaussian probability of scalar value  x  is:
 
 ![alt text](images/logsumexp.gif "Log Form of Gaussian")
 
-where $\mu$ is the mean and $\sigma$ is the standard deviation.
+where mu is the mean and sigma is the standard deviation.
 
 You can calculate the sum of log probabilities using scipy.misc.logsumexp(). For example, logsumexp([-2, -3]) will return the same result as numpy.log(numpy.exp(-2) + numpy.exp(-3))
 
