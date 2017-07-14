@@ -1,10 +1,9 @@
 from __future__ import division
-import warnings
-
-warnings.simplefilter(action="ignore", category=FutureWarning)
 import numpy as np
 from matplotlib import image
 import matplotlib.cm as cm
+import warnings
+warnings.simplefilter(action="ignore", category=FutureWarning)
 
 """Helper image-processing code."""
 
@@ -13,13 +12,11 @@ def image_to_matrix(image_file, grays=False):
     """
     Convert .png image to matrix
     of values.
-    
     params:
     image_file = str
     grays = Boolean
-    
     returns:
-    img = (color) np.ndarray[np.ndarray[np.ndarray[float]]] 
+    img = (color) np.ndarray[np.ndarray[np.ndarray[float]]]
     or (grayscale) np.ndarray[np.ndarray[float]]
     """
     img = image.imread(image_file)
@@ -43,10 +40,10 @@ def image_to_matrix(image_file, grays=False):
 
 def matrix_to_image(image_matrix, image_file):
     """
-    Convert matrix of color/grayscale 
+    Convert matrix of color/grayscale
     values  to .png image
     and save to file.
-    
+
     params:
     image_matrix = (color) numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]]
         or (grayscale) numpy.ndarray[numpy.ndarray[float]]
@@ -61,17 +58,18 @@ def matrix_to_image(image_matrix, image_file):
 
 def flatten_image_matrix(image_matrix):
     """
-    Flatten image matrix from 
+    Flatten image matrix from
     Height by Width by Depth
     to (Height*Width) by Depth
     matrix.
-    
+
     params:
     image_matrix = (color) numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]]
         or (grayscale) numpy.ndarray[numpy.ndarray[float]]
-    
+
     returns:
-    flattened_values = (color) numpy.ndarray[numpy.ndarray[float]] or (grayscale) numpy.ndarray[float]    
+    flattened_values = (color) numpy.ndarray[numpy.ndarray[float]]
+    or (grayscale) numpy.ndarray[float]
     """
     if len(image_matrix.shape) == 3:
         height, width, depth = image_matrix.shape
@@ -86,13 +84,15 @@ def unflatten_image_matrix(image_matrix, width):
     Unflatten image matrix from
     (Height*Width) by Depth to
     Height by Width by Depth matrix.
-    
+
     params:
-    image_matrix = (color) numpy.ndarray[numpy.ndarray[float]] or (grayscale) numpy.ndarray[float]
+    image_matrix = (color) numpy.ndarray[numpy.ndarray[float]]
+    or (grayscale) numpy.ndarray[float]
     width = int
-    
+
     returns:
-    unflattened_values = (color) numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]]
+    unflattened_values =
+        (color) numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]]
         or (grayscale) numpy.ndarray[numpy.ndarray[float]]
     """
     heightWidth = image_matrix.shape[0]
@@ -106,17 +106,17 @@ def unflatten_image_matrix(image_matrix, width):
 
 def image_difference(image_values_1, image_values_2):
     """
-    Calculate the total difference 
+    Calculate the total difference
     in values between two images.
     Assumes that both images have same
     shape.
-    
+
     params:
     image_values_1 = (color) numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]]
         or (grayscale) numpy.ndarray[numpy.ndarray[float]]
     image_values_2 = (color) numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]]
         or (grayscale) numpy.ndarray[numpy.ndarray[float]]
-    
+
     returns:
     dist = int
     """
