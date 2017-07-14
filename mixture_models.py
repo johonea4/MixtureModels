@@ -3,15 +3,11 @@ import warnings
 import numpy as np
 import scipy as sp
 from matplotlib import image
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 from random import randint
-import math
 from scipy.misc import logsumexp
-from helper_functions import image_to_matrix, matrix_to_image, flatten_image_matrix, unflatten_image_matrix, \
-    image_difference
-from random import randint
-from functools import reduce
+from helper_functions import image_to_matrix, matrix_to_image, \
+                             flatten_image_matrix, unflatten_image_matrix, \
+                             image_difference
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
@@ -34,10 +30,10 @@ def k_means_cluster(image_values, k=3, initial_means=None):
     """
     # TODO: finish this function
     raise NotImplementedError()
-    return updated_image_values
 
 
-def default_convergence(prev_likelihood, new_likelihood, conv_ctr, conv_ctr_cap=10):
+def default_convergence(prev_likelihood, new_likelihood, conv_ctr,
+                        conv_ctr_cap=10):
     """
     Default condition for increasing
     convergence counter:
@@ -103,7 +99,6 @@ class GaussianMixtureModel:
         """
         # TODO: finish this
         raise NotImplementedError()
-        return joint_prob
 
     def initialize_training(self):
         """
@@ -136,7 +131,7 @@ class GaussianMixtureModel:
         the overall model likelihood.
 
         params:
-        convergence_function = function that returns True if convergence is reached
+        convergence_function = function, returns True if convergence is reached
         """
         # TODO: finish this
         raise NotImplementedError()
@@ -157,21 +152,20 @@ class GaussianMixtureModel:
         """
         # TODO: finish this
         raise NotImplementedError()
-        return segment
 
     def likelihood(self):
         """Assign a log
         likelihood to the trained
         model based on the following
         formula for posterior probability:
-        ln(Pr(X | mixing, mean, stdev)) = sum((n=1 to N),ln(sum((k=1 to K), mixing_k * N(x_n | mean_k, stdev_k) )))
+        ln(Pr(X | mixing, mean, stdev)) = sum((n=1 to N), ln(sum((k=1 to K),
+                                          mixing_k * N(x_n | mean_k,stdev_k))))
 
         returns:
         log_likelihood = float [0,1]
         """
         # TODO: finish this
         raise NotImplementedError()
-        return log_likelihood
 
     def best_segment(self, iters):
         """Determine the best segmentation
@@ -189,7 +183,6 @@ class GaussianMixtureModel:
         """
         # finish this
         raise NotImplementedError()
-        return segment
 
 
 class GaussianMixtureModelImproved(GaussianMixtureModel):
@@ -202,18 +195,21 @@ class GaussianMixtureModelImproved(GaussianMixtureModel):
         """
         Initialize the training
         process by setting each
-        component mean using some algorithm that you think might give better means to start with,
+        component mean using some algorithm that
+        you think might give better means to start with,
         each component variance to 1, and
         each component mixing coefficient
         to a uniform value
         (e.g. 4 components -> [0.25,0.25,0.25,0.25]).
-        [You can feel free to modify the variance and mixing coefficient initializations too if that works well.]
+        [You can feel free to modify the variance and mixing coefficient
+         initializations too if that works well.]
         """
         # TODO: finish this
         raise NotImplementedError()
 
 
-def new_convergence_function(previous_variables, new_variables, conv_ctr, conv_ctr_cap=10):
+def new_convergence_function(previous_variables, new_variables, conv_ctr,
+                             conv_ctr_cap=10):
     """
     Convergence function
     based on parameters:
@@ -224,8 +220,10 @@ def new_convergence_function(previous_variables, new_variables, conv_ctr, conv_c
 
     params:
 
-    previous_variables = [numpy.ndarray[float]] containing [means, variances, mixing_coefficients]
-    new_variables = [numpy.ndarray[float]] containing [means, variances, mixing_coefficients]
+    previous_variables = [numpy.ndarray[float]]
+                         containing [means, variances, mixing_coefficients]
+    new_variables = [numpy.ndarray[float]]
+                    containing [means, variances, mixing_coefficients]
     conv_ctr = int
     conv_ctr_cap = int
 
@@ -235,7 +233,6 @@ def new_convergence_function(previous_variables, new_variables, conv_ctr, conv_c
     """
     # TODO: finish this function
     raise NotImplementedError()
-    return conv_ctr, converged
 
 
 class GaussianMixtureModelConvergence(GaussianMixtureModel):
@@ -254,7 +251,6 @@ class GaussianMixtureModelConvergence(GaussianMixtureModel):
 def bayes_info_criterion(gmm):
     # TODO: finish this function
     raise NotImplementedError()
-    return BIC
 
 
 def BIC_likelihood_model_test():
@@ -265,18 +261,21 @@ def BIC_likelihood_model_test():
     returns:
     min_BIC_model = GaussianMixtureModel
     max_likelihood_model = GaussianMixtureModel
-    """
-    # TODO: finish this method
-    raise NotImplementedError()
+
+    for testing purposes:
     comp_means = [
         [0.023529412, 0.1254902],
         [0.023529412, 0.1254902, 0.20392157],
         [0.023529412, 0.1254902, 0.20392157, 0.36078432],
         [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689],
-        [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689, 0.71372563],
-        [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689, 0.71372563, 0.964706]
+        [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689,
+         0.71372563],
+        [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689,
+         0.71372563, 0.964706]
     ]
-    return min_BIC_model, max_likelihood_model
+    """
+    # TODO: finish this method
+    raise NotImplementedError()
 
 
 def BIC_likelihood_question():
@@ -297,17 +296,3 @@ def BIC_likelihood_question():
         'likelihood': likelihood
     }
     return pairs
-
-
-def bonus(points_array, means_array):
-    """
-    Return the distance from every point in points_array
-    to every point in means_array.
-    
-    returns:
-    dists = numpy array of float
-    """
-    # TODO: fill in the bonus function
-    # REMOVE THE LINE BELOW IF ATTEMPTING BONUS
-    raise NotImplementedError()
-    return dists
