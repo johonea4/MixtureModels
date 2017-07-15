@@ -51,12 +51,11 @@ Finally, commit the new updates to your branch and continue developing:
 Bonnie is active and in beta, and will be released officially by 26th March 2017.
 
 To submit your code and have it evaluated for a grade, use `python submit.py assignment_5`.  
-The number of submissions allowed is set to 5.
+
 The last submission before the deadline will be used to determine your grade.
  
 A friendly reminder: please ensure that your submission is in `mixture_models.py`. The script described in the following section automatically sends that file to the servers for processing.
 
-Please submit your final script to T-Square too.
 
 # Vagrant
 
