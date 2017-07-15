@@ -74,7 +74,7 @@ Alternatively, you may choose to use numpy and perform this calculation in a sin
 
 20 pts
 One easy method for image segmentation is to simply cluster all similar data points together and then replace their values with the mean value. Thus, we'll warm up using k-means clustering. This will also provide a baseline to compare with your segmentation. Please note that clustering will come in handy later.
-Fill out k_means_cluster() to convert the original image values matrix to its clustered counterpart. Your convergence test should be whether the assigned clusters stop changing. Note that this convergence test is rather slow. When no initial cluster means are provided, k_means_cluster() should choose  kk random points from the data (without replacement) to use as initial cluster means.
+Fill out k_means_cluster() to convert the original image values matrix to its clustered counterpart. Your convergence test should be whether the assigned clusters stop changing. Note that this convergence test is rather slow. When no initial cluster means are provided, k_means_cluster() should choose  k random points from the data (without replacement) to use as initial cluster means.
 For this part of the assignment, since clustering is best used on multidimensional data, we will be using the color image bird_color_24.png.
 You can test your implementation of k-means using our reference images in k_means_test().
 Try to vectorize the code for it to run faster. Without vectorization it takes 25-30 minutes for the code to run.
