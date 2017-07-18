@@ -1,16 +1,35 @@
 from __future__ import division
 import warnings
 import numpy as np
-import scipy as sp
+#import scipy as sp
 from matplotlib import image
 from random import randint
-from scipy.misc import logsumexp
+#from scipy.misc import logsumexp
 from helper_functions import image_to_matrix, matrix_to_image, \
                              flatten_image_matrix, unflatten_image_matrix, \
                              image_difference
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
+def getInitialMeans(values,k,dim):
+    rArray=[]
+    for i in range(len(dim)-1):
+        r = np.random.randint(0,dim[i],k)
+        rArray.append(r)
+    l = [ values[rArray[0][i]][rArray[1][i]] for i in range(k) ]
+    return np.array(l) 
+
+def getDistances(values,points,k):
+    kArray = []
+    for i in range(k):
+        tmp = np.subtract(values,points[i])
+        tmp = np.square(tmp)
+        tmp = np.sum(tmp,1)
+        tmp = np.sqrt(tmp)
+        kArray.append(tmp)
+    return np.array(kArray)
+
+    
 
 def k_means_cluster(image_values, k=3, initial_means=None):
     """
@@ -28,8 +47,58 @@ def k_means_cluster(image_values, k=3, initial_means=None):
     returns:
     updated_image_values = numpy.ndarray[numpy.ndarray[numpy.ndarray[float]]]
     """
-    # TODO: finish this function
-    raise NotImplementedError()
+    #1. If initial is None, create a random initial point list from data
+    dim = [np.size(image_values,0),np.size(image_values,1),np.size(image_values,2)]
+    if initial_means == None:
+        initial_means = getInitialMeans(image_values,k,dim)
+        
+    #2. Loop through initial list and subtract it from the data points
+    sz = 1
+    for i in range(len(dim)-1): sz = sz * dim[i]
+    arr_reshaped = np.reshape(image_values,(sz,dim[len(dim)-1]))
+
+    #3. Square sum and root results to get distance from eack k point
+    kArray = getDistances(arr_reshaped,initial_means,k)
+    
+    #4. Build array containing dataset for each k
+    minValues = np.min(kArray,0)
+    kValues = []
+    kIndexes = []
+    kAvg = []
+    for i in range(k):
+        tmp = np.where(kArray[i] <= minValues)
+        kIndexes.append(tmp)
+        kValues.append(arr_reshaped[tmp])
+    np.array(kValues)
+    for i in range(k):
+        arr = kValues[i]
+        avg = np.mean(arr,0)
+        kAvg.append(avg)   
+    kAvg = np.array(kAvg)
+
+    #5. Test for convergence and compile new image data to return
+    convergence=False
+    convArray = np.subtract(initial_means,kAvg)
+    convArray = np.absolute(convArray)
+    for row in convArray:
+        for item in row:
+            if item < 1e-6:
+                convergence=True
+            else:
+                convergence=False
+                break
+        if convergence==False: break
+    if convergence:
+        arr_orig = np.ndarray(shape=(sz,dim[len(dim)-1]))
+        for i in range(k):
+            arr_orig[kIndexes[i]] = kAvg[i]
+
+        arr_orig = np.reshape(arr_orig,(dim[0],dim[1],dim[2]))
+        return arr_orig
+    
+    #6. If no convergence, get new mean for each array cluster and recurse
+    else:
+        return k_means_cluster(image_values,k,kAvg)
 
 
 def default_convergence(prev_likelihood, new_likelihood, conv_ctr,

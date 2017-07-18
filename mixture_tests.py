@@ -71,14 +71,12 @@ class GMMTests(unittest.TestCase):
         ]
         # test different k values to find best
         for k in range(k_min, k_max + 1):
-            updated_values = k_means_cluster(image_values, k,
-                                             initial_means[k - k_min])
+            updated_values = k_means_cluster(image_values, k, initial_means[k - k_min])
 
             ref_image = image_dir + 'k%d_%s' % (k, image_name)
             ref_values = image_to_matrix(ref_image)
             dist = image_difference(updated_values, ref_values)
-            self.assertEqual(int(dist), 0, msg="Clustering for %d clusters"
-                             + "produced unrealistic image segmentation." % k)
+            self.assertEqual(int(dist), 0, msg="Clustering for %d clusters produced unrealistic image segmentation." % k)
 
     def test_gmm_likelihood(self):
         """Testing the GMM method
