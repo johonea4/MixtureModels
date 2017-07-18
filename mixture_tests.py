@@ -75,13 +75,13 @@ class GMMTests(unittest.TestCase):
 
             ref_image = image_dir + 'k%d_%s' % (k, image_name)
             ref_values = image_to_matrix(ref_image)
+            matrix_to_image(updated_values,"./testImage-%d.png" % k)
             dist = image_difference(updated_values, ref_values)
-<<<<<<< HEAD
-            self.assertEqual(int(dist), 0, msg="Clustering for %d clusters produced unrealistic image segmentation." % k)
-=======
             self.assertEqual(int(dist), 0, msg=("Clustering for %d clusters"
                              + "produced unrealistic image segmentation.") % k)
->>>>>>> c320bb0c82ce210a3cbc68e21519bd2d030bbd6d
+
+  #      m = k_means_cluster(image_values,40,None)
+ #       matrix_to_image(m,"./testImage-Final.png")     
 
     def test_gmm_likelihood(self):
         """Testing the GMM method
