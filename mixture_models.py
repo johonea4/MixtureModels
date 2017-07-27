@@ -427,9 +427,10 @@ class GaussianMixtureModelImproved(GaussianMixtureModel):
                 a2 = np.mean(a1)
                 final_means.append(a2)
             self.means = np.array(final_means)
-            mag1 = np.sum(np.square(init_means))
-            mag2 = np.sum(np.square(self.means))
-            if abs(mag2-mag1) < 1e-6:
+            a1 = np.abs(np.subtract(self.means,init_means))
+            a2 = np.array([1.0e-6]*self.num_components)
+            a1_bool = a1 <= a2
+            if np.alltrue(a1_bool):
                 converge=True
 
 def new_convergence_function(previous_variables, new_variables, conv_ctr,
@@ -466,9 +467,9 @@ def new_convergence_function(previous_variables, new_variables, conv_ctr,
     diff_variances = np.abs(np.subtract(nVariances,pVariances))
     diff_coefficients = np.abs(np.subtract(nCoefficients,pCoefficients))
 
-    bool_means = diff_means <= np.multiply(pMeans,0.1)
-    bool_variances = diff_variances <= np.multiply(pVariances,0.1)
-    bool_coefficients = diff_coefficients <= np.multiply(pCoefficients,0.1)
+    bool_means = diff_means <= np.abs(np.multiply(pMeans,0.1))
+    bool_variances = diff_variances <= np.abs(np.multiply(pVariances,0.1))
+    bool_coefficients = diff_coefficients <= np.abs(np.multiply(pCoefficients,0.1))
 
     if np.alltrue(bool_means) and np.alltrue(bool_variances) and np.alltrue(bool_coefficients):
         conv_ctr = conv_ctr+1
@@ -535,20 +536,57 @@ def BIC_likelihood_model_test():
     max_likelihood_model = GaussianMixtureModel
 
     for testing purposes:
+    
+    """
     comp_means = [
         [0.023529412, 0.1254902],
         [0.023529412, 0.1254902, 0.20392157],
         [0.023529412, 0.1254902, 0.20392157, 0.36078432],
         [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689],
-        [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689,
-         0.71372563],
-        [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689,
-         0.71372563, 0.964706]
+        [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689, 0.71372563],
+        [0.023529412, 0.1254902, 0.20392157, 0.36078432, 0.59215689, 0.71372563, 0.964706]
     ]
-    """
-    # TODO: finish this method
-    raise NotImplementedError()
 
+    kMin=2
+    kMax=7
+    image_file = 'images/party_spock.png'
+    image_matrix = image_to_matrix(image_file)
+
+    minBIC=0
+    maxLic=0
+    minBicModel = None
+    maxLicModel = None
+    for k in range(kMin,kMax+1):
+        kk = k-kMin
+        initial_means = comp_means[kk]
+        num_components = k
+        gmm = GaussianMixtureModel(image_matrix, num_components)
+        gmm.initialize_training()
+        gmm.means = np.array(initial_means)
+        initial_liklihood = gmm.likelihood()
+        initial_bic = bayes_info_criterion(gmm)
+        gmm.train_model()
+
+        l = gmm.likelihood()
+        b = bayes_info_criterion(gmm)
+
+        if(k==kMin):
+            minBIC=b
+            maxLic=l
+            minBicModel=gmm
+            maxLicModel=gmm
+        else:
+            if b<minBIC: 
+                minBIC=b
+                minBicModel=gmm
+            if l>maxLic: 
+                maxLic=l
+                maxLicModel=gmm
+
+    print("MinBIC: %d") % minBicModel.num_components
+    print("MaxLic: %d") % maxLicModel.num_components
+
+    return minBicModel, maxLicModel
 
 def BIC_likelihood_question():
     """
@@ -559,10 +597,8 @@ def BIC_likelihood_question():
     returns:
     pairs = dict
     """
-    # TODO: fill in bic and likelihood
-    raise NotImplementedError()
-    bic = 0
-    likelihood = 0
+    bic = 7
+    likelihood = 7
     pairs = {
         'BIC': bic,
         'likelihood': likelihood

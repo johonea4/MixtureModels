@@ -4,7 +4,8 @@ import numpy as np
 from mixture_models import k_means_cluster, image_difference, \
                  GaussianMixtureModel,  bayes_info_criterion, \
                  GaussianMixtureModelConvergence, \
-                 GaussianMixtureModelImproved
+                 GaussianMixtureModelImproved, \
+                 BIC_likelihood_model_test
 import unittest
 
 
@@ -357,6 +358,18 @@ class GMMTests(unittest.TestCase):
         self.assertEqual(round(727045, -3), round(b_i_c, -3),
                          msg="BIC calculation incorrect.")
 
-
+    def test_BIC_likelihood_model_test(self):
+        """
+        Return the best bic and likelihood values you found
+        """
+        from mixture_models import BIC_likelihood_model_test
+        bic, likelihood = BIC_likelihood_model_test()
+        truth = isinstance(bic, GaussianMixtureModel) and isinstance(likelihood, GaussianMixtureModel)
+        if truth:
+            print("BIC Score:        ", bic.num_components)
+            print("Likelihood Score: ", likelihood.num_components)
+        self.assertTrue(truth, msg="Incorrect return type(s)")
+        
 if __name__ == '__main__':
+ #   BIC_likelihood_model_test()
     unittest.main()
